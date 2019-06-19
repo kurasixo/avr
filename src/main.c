@@ -18,9 +18,9 @@ int main() {
   while(i < 20) {
     currentCount = i % 8;
     PORTD |= 1 << currentCount; // Добавляем 1 к следуещему разряду
+    _delay_ms(1000);
     PORTD &= ~PORTD; // Обнуляем пины
     i++;
-    _delay_ms(1000);
   }
 
   return 0;
