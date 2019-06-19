@@ -1,6 +1,6 @@
 # Тестовый проект для программирования на мк семейства AVR
 
-# [Схема подключения](https://github.com/kurasixo/avr/blob/master/CONNECT.pdf)
+# [Схема подключения](https://github.com/kurasixo/avr/blob/master/docs/connect.pdf)
 
 ## Подготовотельные шаги:
 ### Windows:
