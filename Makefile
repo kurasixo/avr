@@ -1,6 +1,9 @@
-MMCU=-mmcu=atmega8
+PROGRAMMER=usbasp
+CONTROLLER=atmega8
+MMCU=-mmcu=$(CONTROLLER)
 
 CC=avr-gcc
+FLASHER=avrdude
 OBJCOPY=avr-objcopy
 
 SOURCES=main.c
@@ -27,13 +30,13 @@ pre-build:
 	mkdir $(DESTDIR)
 	mkdir $(FIRMWARES)
 	echo Compiler: "$(CC)"
-	echo MMCU: "$(MMCU)"
+	echo Controller: "$(CONTROLLER)"
 
 .SILENT:
 post-build: main-target
 	mv $(DESTDIR)/$(HEXFIRMWARE) $(FIRMWARES)/$(HEXFIRMWARE)
 	rm -rf $(DESTDIR)
-	echo "Done"
+	echo "Done."
 
 .SILENT:
 main-target: pre-build $(ELFFIRMWARE)
@@ -47,6 +50,11 @@ $(OBJECTS):
 $(ELFFIRMWARE): $(OBJECTS)
 	echo "Building elf firmware..."
 	$(CC) $(CFLAGS) $(MMCU) -o $(DESTDIR)/$(ELFFIRMWARE) $(DESTDIR)/$(OBJECTS)
+
+flash: main-target
+	echo "Flashing..."
+	$(FLASHER) -p $(CONTROLLER) -c $(PROGRAMMER) -U flash:w:$(HEXFIRMWARE):a
+	echo "Done flashing."
 
 .SILENT:
 clean:
