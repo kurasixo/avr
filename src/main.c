@@ -10,6 +10,7 @@
 // Лучше устанавливать, ибо может нестабильно работать _delay_ms
 #define F_CPU 8000000
 
+#include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
 
@@ -20,11 +21,10 @@ int main() {
   unsigned int i = 0;
   unsigned int currentCount = i;
 
-  while(i < 20) {
+  while(true) {
     currentCount = i % 8;
-    PORTD |= 1 << currentCount; // Добавляем 1 к следуещему разряду
+    PORTD = 1 << currentCount; // Добавляем 1 к следуещему разряду
     _delay_ms(1000);
-    PORTD &= ~PORTD; // Обнуляем пины
     i++;
   }
 
