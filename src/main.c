@@ -14,6 +14,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+#define lightsCount 8;
+
 int main() {
   DDRD = 0xFF; // Ставим порт на вывод сигнала
   PORTD = 0b00000000; // Обнуляем все пины в порту D
@@ -22,7 +24,7 @@ int main() {
   unsigned int currentCount = i;
 
   while(true) {
-    currentCount = i % 8;
+    currentCount = i % lightsCount;
     PORTD = 1 << currentCount; // Добавляем 1 к следуещему разряду
     _delay_ms(1000);
     i++;
